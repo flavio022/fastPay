@@ -1,5 +1,7 @@
 {
   "name": "fastPay",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

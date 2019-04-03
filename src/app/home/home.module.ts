@@ -1,23 +1,41 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-
-import { HomePage } from './home.page';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+ 
+import { MyApp } from './app.component';
+import { HomePage } from '../pages/home/home';
+ 
+import { SQLite } from '@ionic-native/sqlite'
+import { DatabaseProvider } from '../providers/database/database';
+import { ProductProvider } from '../providers/product/product';
+import { CategoryProvider } from '../providers/category/category';
+ 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: HomePage
-      }
-    ])
+  declarations: [
+    MyApp,
+    HomePage
   ],
-  declarations: [HomePage]
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(MyApp)
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+    HomePage
+  ],
+  providers: [
+    StatusBar,
+    SplashScreen,
+    // Grande sacada para formatar numeros e datas no formato brasileiro
+    {provide: LOCALE_ID, useValue: 'pt-BR'},
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    SQLite,
+    DatabaseProvider,
+    ProductProvider,
+    CategoryProvider
+  ]
 })
-export class HomePageModule {}
+export class AppModule {}
